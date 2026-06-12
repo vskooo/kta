@@ -1,0 +1,22 @@
+<div class="overlay">
+  <div
+    class="card"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="result-title"
+  >
+    <p class="card-kicker">{{ texts.resultTitle }}</p>
+    <p class="card-emoji" aria-hidden="true">
+      {{ result().selectedPlan.emoji ?? '✨' }}
+    </p>
+    <h2 id="result-title" class="card-title">
+      {{ result().selectedPlan.title }}
+    </h2>
+    @if (result().selectedPlan.description; as description) {
+      <p class="card-description">{{ description }}</p>
+    }
+    <button type="button" class="card-button" (click)="spinAgain.emit()">
+      {{ texts.spinAgainButton }}
+    </button>
+  </div>
+</div>

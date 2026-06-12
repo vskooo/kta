@@ -1,0 +1,92 @@
+:host {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  display: block;
+  overflow: hidden;
+  background: #241636;
+}
+
+.scene {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.tw {
+  animation: twinkle 3.2s ease-in-out infinite;
+}
+
+.tw.d1 {
+  animation-delay: 1.1s;
+}
+
+.tw.d2 {
+  animation-delay: 2.2s;
+}
+
+.cloud {
+  opacity: 0.12;
+  animation: drift 60s linear infinite alternate;
+}
+
+.cloud.c2 {
+  animation-duration: 80s;
+  animation-direction: alternate-reverse;
+}
+
+.comet {
+  opacity: 0;
+  animation: comet-pass 9s ease-in-out infinite;
+}
+
+.comet.c2 {
+  animation-delay: 4.5s;
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}
+
+@keyframes drift {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(60px);
+  }
+}
+
+@keyframes comet-pass {
+  0%,
+  78% {
+    opacity: 0;
+    transform: translate(0, 0);
+  }
+  82% {
+    opacity: 1;
+  }
+  92%,
+  100% {
+    opacity: 0;
+    transform: translate(-70px, 28px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tw,
+  .cloud,
+  .comet {
+    animation: none;
+  }
+
+  .comet {
+    opacity: 0.5;
+  }
+}

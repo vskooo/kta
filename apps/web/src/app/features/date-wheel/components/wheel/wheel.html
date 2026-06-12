@@ -1,0 +1,37 @@
+<div class="wheel-wrap">
+  <div class="pointer" aria-hidden="true"></div>
+  <svg
+    viewBox="0 0 360 360"
+    role="img"
+    [attr.aria-label]="texts.wheelDescription"
+  >
+    <circle class="rim" cx="180" cy="180" r="178" />
+    <g
+      class="rotor"
+      [style.transform]="'rotate(' + rotation() + 'deg)'"
+      (transitionend)="onTransitionEnd($event)"
+    >
+      @for (segment of segments(); track segment.id) {
+        <path [attr.d]="segment.path" [attr.fill]="segment.fill" />
+        <text
+          class="label"
+          [attr.x]="segment.labelX"
+          [attr.y]="segment.labelY"
+          [attr.transform]="segment.labelTransform"
+          [attr.fill]="segment.textColor"
+        >
+          {{ segment.shortTitle }}
+        </text>
+        <text
+          class="emoji"
+          [attr.x]="segment.emojiX"
+          [attr.y]="segment.emojiY"
+        >
+          {{ segment.emoji }}
+        </text>
+      }
+      <circle class="hub" cx="180" cy="180" r="30" />
+      <text class="hub-emoji" x="180" y="180">⛰️</text>
+    </g>
+  </svg>
+</div>

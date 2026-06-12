@@ -1,0 +1,46 @@
+generator client {
+  provider            = "prisma-client"
+  output              = "../src/generated/prisma"
+  moduleFormat        = "cjs"
+  importFileExtension = ""
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum PlanCategory {
+  FOOD
+  ADVENTURE
+  RELAX
+  HOME
+  SURPRISE
+  OTHER
+}
+
+model DatePlan {
+  id          String       @id @default(cuid())
+  title       String       @db.VarChar(80)
+  description String?      @db.VarChar(240)
+  emoji       String?      @db.VarChar(16)
+  category    PlanCategory @default(OTHER)
+  weight      Int          @default(1)
+  isActive    Boolean      @default(true)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  spins       Spin[]
+
+  @@index([isActive])
+  @@map("date_plans")
+}
+
+model Spin {
+  id         String   @id @default(cuid())
+  datePlanId String
+  spunAt     DateTime @default(now())
+  datePlan   DatePlan @relation(fields: [datePlanId], references: [id], onDelete: Restrict)
+
+  @@index([spunAt])
+  @@index([datePlanId])
+  @@map("spins")
+}

@@ -1,0 +1,113 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: grid;
+  place-items: center;
+  padding: 1.25rem;
+  background: rgba(26, 16, 38, 0.55);
+  backdrop-filter: blur(4px);
+  animation: fade-in 0.35s ease-out both;
+}
+
+.card {
+  width: 100%;
+  max-width: 26rem;
+  max-height: calc(100dvh - 2.5rem);
+  overflow-y: auto;
+  text-align: center;
+  padding: 2rem 1.75rem;
+  border-radius: 1.5rem;
+  background: linear-gradient(170deg, #fff6e8 0%, #f7e3c8 100%);
+  border: 2px solid rgba(216, 135, 95, 0.45);
+  box-shadow: 0 20px 50px rgba(20, 12, 32, 0.45);
+  color: #26332d;
+  animation: pop-in 0.45s cubic-bezier(0.34, 1.4, 0.64, 1) both;
+}
+
+.card-kicker {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #b35a36;
+}
+
+.card-emoji {
+  margin: 0;
+  font-size: 4rem;
+  line-height: 1.2;
+}
+
+.card-title {
+  margin: 0.5rem 0 0;
+  font-family: var(--font-display);
+  font-size: 1.85rem;
+  line-height: 1.2;
+  color: #234536;
+}
+
+.card-description {
+  margin: 0.75rem 0 0;
+  font-size: 1.05rem;
+  line-height: 1.5;
+  color: #44523f;
+}
+
+.card-button {
+  margin-top: 1.5rem;
+  padding: 0.85rem 2rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  font-family: inherit;
+  color: #fff6e8;
+  background: linear-gradient(160deg, #f47b3f, #d8875f);
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(216, 95, 50, 0.4);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(216, 95, 50, 0.5);
+  }
+
+  &:focus-visible {
+    outline: 3px solid #26344a;
+    outline-offset: 3px;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay,
+  .card {
+    animation-duration: 0.01s;
+  }
+
+  .card-button {
+    transition: none;
+  }
+}

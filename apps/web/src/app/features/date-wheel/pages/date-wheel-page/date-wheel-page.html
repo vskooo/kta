@@ -1,0 +1,54 @@
+<app-mountain-background />
+
+<main class="page">
+  <header class="hero">
+    <h1>{{ texts.title }}</h1>
+    <p>{{ texts.subtitle }}</p>
+  </header>
+
+  @if (loading()) {
+    <app-loading-state [message]="texts.loading" />
+  } @else if (loadError()) {
+    <app-error-state
+      [message]="texts.loadError"
+      [canRetry]="true"
+      (retry)="loadPlans()"
+    />
+  } @else if (notEnoughPlans()) {
+    <app-error-state
+      [message]="texts.notEnoughPlans"
+      [canRetry]="true"
+      (retry)="loadPlans()"
+    />
+  } @else {
+    <app-wheel
+      [plans]="plans()"
+      [rotation]="rotation()"
+      [spinning]="spinning()"
+      (spinEnd)="onSpinEnd()"
+    />
+
+    <button
+      type="button"
+      class="spin-button"
+      [disabled]="spinning()"
+      (click)="spin()"
+    >
+      {{ texts.spinButton }}
+    </button>
+
+    @if (spinError()) {
+      <app-error-state [message]="texts.spinError" />
+    }
+  }
+
+  <div aria-live="polite" class="sr-only">
+    @if (showResult() && result(); as spinResult) {
+      {{ texts.resultTitle }} {{ spinResult.selectedPlan.title }}
+    }
+  </div>
+</main>
+
+@if (showResult() && result(); as spinResult) {
+  <app-result-card [result]="spinResult" (spinAgain)="onSpinAgain()" />
+}

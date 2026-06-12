@@ -1,0 +1,42 @@
+:root {
+  --color-pine: #234536;
+  --color-sage: #8fae94;
+  --color-cream: #fff6e8;
+  --color-sunset: #d8875f;
+  --color-sky: #bfd7de;
+  --color-night: #26344a;
+  --color-text: #26332d;
+  --color-white: #ffffff;
+  --color-dusk: #241636;
+  --color-ember: #f47b3f;
+  --color-lilac: #8a6cab;
+  --font-body: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  --font-display: Georgia, 'Times New Roman', serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-text);
+  background: var(--color-dusk);
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  touch-action: manipulation;
+}
