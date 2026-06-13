@@ -3,10 +3,14 @@ import {
   Injectable,
   InternalServerErrorException,
   Logger,
+  NotFoundException,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { randomInt } from 'node:crypto';
+import { SpinOutcome } from '../generated/prisma/enums';
+import { MailService } from '../mail/mail.service';
 import { PrismaService } from '../prisma/prisma.service';
+import { SpinDecision } from './dto/decide-spin.dto';
 import { RecentSpinDto, SpinResultDto } from './dto/spin.dto';
 
 interface WeightedPlan {
@@ -33,6 +37,7 @@ export class SpinsService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly configService: ConfigService,
+    private readonly mailService: MailService,
   ) {}
 
   async spin(): Promise<SpinResultDto> {
@@ -55,6 +60,7 @@ export class SpinsService {
       select: {
         id: true,
         spunAt: true,
+        outcome: true,
         datePlan: { select: SELECTED_PLAN_SELECT },
       },
     });
@@ -62,6 +68,51 @@ export class SpinsService {
     return {
       id: spin.id,
       spunAt: spin.spunAt,
+      outcome: spin.outcome,
+      selectedPlan: spin.datePlan,
+    };
+  }
+
+  async decide(id: string, decision: SpinDecision): Promise<SpinResultDto> {
+    const existing = await this.prisma.spin.findUnique({
+      where: { id },
+      select: { id: true, outcome: true },
+    });
+
+    if (!existing) {
+      throw new NotFoundException('No se encontró el giro indicado.');
+    }
+
+    if (existing.outcome !== SpinOutcome.PENDING) {
+      throw new ConflictException(
+        'Este giro ya tiene una decisión registrada.',
+      );
+    }
+
+    const spin = await this.prisma.spin.update({
+      where: { id },
+      data: { outcome: decision, decidedAt: new Date() },
+      select: {
+        id: true,
+        spunAt: true,
+        outcome: true,
+        decidedAt: true,
+        datePlan: { select: SELECTED_PLAN_SELECT },
+      },
+    });
+
+    void this.mailService.sendSpinDecision({
+      outcome: decision,
+      planTitle: spin.datePlan.title,
+      planDescription: spin.datePlan.description,
+      planEmoji: spin.datePlan.emoji,
+      decidedAt: spin.decidedAt ?? new Date(),
+    });
+
+    return {
+      id: spin.id,
+      spunAt: spin.spunAt,
+      outcome: spin.outcome,
       selectedPlan: spin.datePlan,
     };
   }
@@ -78,6 +129,7 @@ export class SpinsService {
       select: {
         id: true,
         spunAt: true,
+        outcome: true,
         datePlan: { select: SELECTED_PLAN_SELECT },
       },
     });
@@ -85,6 +137,7 @@ export class SpinsService {
     return spins.map((spin) => ({
       id: spin.id,
       spunAt: spin.spunAt,
+      outcome: spin.outcome,
       selectedPlan: spin.datePlan,
     }));
   }

@@ -1,5 +1,9 @@
 import { PlanCategory } from './date-plan.model';
 
+export type SpinOutcome = 'PENDING' | 'ACCEPTED' | 'REJECTED';
+
+export type SpinDecision = 'ACCEPTED' | 'REJECTED';
+
 export interface SelectedPlan {
   id: string;
   title: string;
@@ -11,6 +15,7 @@ export interface SelectedPlan {
 export interface SpinResult {
   id: string;
   spunAt: string;
+  outcome: SpinOutcome;
   selectedPlan: SelectedPlan;
 }
 

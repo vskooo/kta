@@ -16,6 +16,8 @@ import { SpinResult } from '../../../../core/models/spin.model';
 })
 export class ResultCard {
   readonly result = input.required<SpinResult>();
+  readonly decided = input(false);
+  readonly accepted = output<void>();
   readonly spinAgain = output<void>();
   readonly dismissed = output<void>();
 

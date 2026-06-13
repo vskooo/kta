@@ -52,6 +52,8 @@
 @if (showResult() && result(); as spinResult) {
   <app-result-card
     [result]="spinResult"
+    [decided]="resultDecided()"
+    (accepted)="onAccept()"
     (spinAgain)="onSpinAgain()"
     (dismissed)="onCloseResult()"
   />

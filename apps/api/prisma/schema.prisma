@@ -19,6 +19,12 @@ enum PlanCategory {
   OTHER
 }
 
+enum SpinOutcome {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
 model DatePlan {
   id          String       @id @default(cuid())
   title       String       @db.VarChar(80)
@@ -36,12 +42,15 @@ model DatePlan {
 }
 
 model Spin {
-  id         String   @id @default(cuid())
+  id         String      @id @default(cuid())
   datePlanId String
-  spunAt     DateTime @default(now())
-  datePlan   DatePlan @relation(fields: [datePlanId], references: [id], onDelete: Restrict)
+  spunAt     DateTime    @default(now())
+  outcome    SpinOutcome @default(PENDING)
+  decidedAt  DateTime?
+  datePlan   DatePlan    @relation(fields: [datePlanId], references: [id], onDelete: Restrict)
 
   @@index([spunAt])
   @@index([datePlanId])
+  @@index([outcome])
   @@map("spins")
 }

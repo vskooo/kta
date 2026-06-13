@@ -46,6 +46,7 @@ const PLANS: DatePlan[] = [
 const SPIN_RESULT: SpinResult = {
   id: 'spin-1',
   spunAt: '2026-06-10T20:00:00.000Z',
+  outcome: 'PENDING',
   selectedPlan: {
     id: 'plan-2',
     title: 'Cafecito y paseo',
@@ -65,9 +66,15 @@ class PlansApiMock {
 
 class SpinsApiMock {
   readonly spin$ = new Subject<SpinResult>();
+  readonly decideCalls: { id: string; outcome: string }[] = [];
 
   spin() {
     return this.spin$.asObservable();
+  }
+
+  decide(id: string, outcome: string) {
+    this.decideCalls.push({ id, outcome });
+    return new Subject<SpinResult>().asObservable();
   }
 }
 
@@ -201,5 +208,53 @@ describe('DateWheelPage', () => {
     expect(element().querySelector('app-result-card')).not.toBeNull();
     expect(element().textContent).toContain(SPIN_RESULT.selectedPlan.title);
     expect(spinButton().disabled).toBe(false);
+  });
+
+  async function showResultCard(): Promise<void> {
+    await emitPlans(PLANS);
+    spinButton().click();
+    await fixture.whenStable();
+    spinsApi.spin$.next(SPIN_RESULT);
+    spinsApi.spin$.complete();
+    await fixture.whenStable();
+    dispatchSpinEnd();
+    await fixture.whenStable();
+  }
+
+  function clickCardButton(text: string): void {
+    const buttons = Array.from(
+      element().querySelectorAll<HTMLButtonElement>('app-result-card button'),
+    );
+    const button = buttons.find((candidate) =>
+      candidate.textContent?.includes(text),
+    );
+    if (!button) {
+      throw new Error(`card button "${text}" not found`);
+    }
+    button.click();
+  }
+
+  it('records an ACCEPTED decision and shows the confirmation', async () => {
+    await showResultCard();
+
+    clickCardButton(UI_TEXTS.acceptButton);
+    await fixture.whenStable();
+
+    expect(spinsApi.decideCalls).toEqual([
+      { id: SPIN_RESULT.id, outcome: 'ACCEPTED' },
+    ]);
+    expect(element().textContent).toContain(UI_TEXTS.acceptedTitle);
+    expect(element().querySelector('app-result-card')).not.toBeNull();
+  });
+
+  it('records a REJECTED decision when choosing to spin again', async () => {
+    await showResultCard();
+
+    clickCardButton(UI_TEXTS.spinAgainButton);
+    await fixture.whenStable();
+
+    expect(spinsApi.decideCalls).toEqual([
+      { id: SPIN_RESULT.id, outcome: 'REJECTED' },
+    ]);
   });
 });

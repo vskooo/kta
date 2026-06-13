@@ -24,8 +24,31 @@
     @if (result().selectedPlan.description; as description) {
       <p class="card-description">{{ description }}</p>
     }
-    <button type="button" class="card-button" (click)="spinAgain.emit()">
-      {{ texts.spinAgainButton }}
-    </button>
+
+    @if (decided()) {
+      <p class="card-accepted">{{ texts.acceptedTitle }}</p>
+      <p class="card-description">{{ texts.acceptedMessage }}</p>
+      <button
+        type="button"
+        class="card-button card-button-secondary"
+        (click)="spinAgain.emit()"
+      >
+        {{ texts.spinAgainButton }}
+      </button>
+    } @else {
+      <p class="card-prompt">{{ texts.resultPrompt }}</p>
+      <div class="card-actions">
+        <button type="button" class="card-button" (click)="accepted.emit()">
+          {{ texts.acceptButton }}
+        </button>
+        <button
+          type="button"
+          class="card-button card-button-secondary"
+          (click)="spinAgain.emit()"
+        >
+          {{ texts.spinAgainButton }}
+        </button>
+      </div>
+    }
   </div>
 </div>

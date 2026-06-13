@@ -1,5 +1,7 @@
 import { plainToInstance } from 'class-transformer';
 import {
+  IsBoolean,
+  IsEmail,
   IsEnum,
   IsInt,
   IsOptional,
@@ -45,6 +47,36 @@ export class EnvironmentVariables {
   @IsInt()
   @Min(1)
   RECENT_SPINS_MAX_LIMIT: number = 50;
+
+  @IsOptional()
+  @IsString()
+  SMTP_HOST?: string;
+
+  @IsOptional()
+  @IsInt()
+  @Min(1)
+  @Max(65535)
+  SMTP_PORT: number = 587;
+
+  @IsOptional()
+  @IsBoolean()
+  SMTP_SECURE?: boolean;
+
+  @IsOptional()
+  @IsString()
+  SMTP_USER?: string;
+
+  @IsOptional()
+  @IsString()
+  SMTP_PASS?: string;
+
+  @IsOptional()
+  @IsString()
+  MAIL_FROM?: string;
+
+  @IsOptional()
+  @IsEmail()
+  MAIL_TO?: string;
 }
 
 export function validateEnv(

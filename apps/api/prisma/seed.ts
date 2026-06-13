@@ -32,7 +32,7 @@ const initialPlans: Array<{
     weight: 1,
   },
   {
-    title: 'Cena casera juntos',
+    title: 'Cena casera',
     description: 'Cocinar algo rico entre los dos.',
     emoji: '🍝',
     category: PlanCategory.HOME,
@@ -60,7 +60,7 @@ const initialPlans: Array<{
     weight: 1,
   },
   {
-    title: 'Cita Deportiva',
+    title: 'Salida deportiva',
     description: 'Elijamos deporte y vamo',
     emoji: '🏃‍♀️‍➡️🧗🥊',
     category: PlanCategory.SPORT,

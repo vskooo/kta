@@ -1,5 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { PlanCategory } from '../../generated/prisma/enums';
+import { PlanCategory, SpinOutcome } from '../../generated/prisma/enums';
 
 export class SelectedPlanDto {
   @ApiProperty({ example: 'cmbtq0abc0000abcd1234efgh' })
@@ -27,6 +27,9 @@ export class SpinResultDto {
   @ApiProperty({ example: '2026-06-10T20:00:00.000Z' })
   spunAt!: Date;
 
+  @ApiProperty({ enum: SpinOutcome, example: SpinOutcome.PENDING })
+  outcome!: SpinOutcome;
+
   @ApiProperty({ type: SelectedPlanDto })
   selectedPlan!: SelectedPlanDto;
 }
@@ -42,6 +45,9 @@ export class RecentSpinDto {
 
   @ApiProperty({ example: '2026-06-10T20:00:00.000Z' })
   spunAt!: Date;
+
+  @ApiProperty({ enum: SpinOutcome, example: SpinOutcome.ACCEPTED })
+  outcome!: SpinOutcome;
 
   @ApiProperty({ type: SelectedPlanDto })
   selectedPlan!: SelectedPlanDto;

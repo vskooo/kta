@@ -40,6 +40,7 @@ export class DateWheelPage implements OnInit {
   protected readonly spinError = signal(false);
   protected readonly result = signal<SpinResult | null>(null);
   protected readonly showResult = signal(false);
+  protected readonly resultDecided = signal(false);
   protected readonly rotation = signal(0);
 
   private pendingResult: SpinResult | null = null;
@@ -80,6 +81,7 @@ export class DateWheelPage implements OnInit {
     this.spinning.set(true);
     this.spinError.set(false);
     this.showResult.set(false);
+    this.resultDecided.set(false);
     this.result.set(null);
 
     this.spinsApi.spin().subscribe({
@@ -123,7 +125,32 @@ export class DateWheelPage implements OnInit {
     this.spinning.set(false);
   }
 
+  protected onAccept(): void {
+    const current = this.result();
+
+    if (!current || this.resultDecided()) {
+      return;
+    }
+
+    this.resultDecided.set(true);
+    this.spinsApi.decide(current.id, 'ACCEPTED').subscribe({
+      error: () => {
+        /* La decisión se registra de forma silenciosa; no bloqueamos a la usuaria. */
+      },
+    });
+  }
+
   protected onSpinAgain(): void {
+    const current = this.result();
+
+    if (current && !this.resultDecided()) {
+      this.spinsApi.decide(current.id, 'REJECTED').subscribe({
+        error: () => {
+          /* Registro silencioso del rechazo. */
+        },
+      });
+    }
+
     this.showResult.set(false);
     this.spin();
   }

@@ -1,10 +1,13 @@
 import {
   ConflictException,
   InternalServerErrorException,
+  NotFoundException,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Test } from '@nestjs/testing';
+import { MailService } from '../mail/mail.service';
 import { PrismaService } from '../prisma/prisma.service';
+import { SpinDecision } from './dto/decide-spin.dto';
 import { SpinsService } from './spins.service';
 
 jest.mock('node:crypto', () => ({
@@ -20,11 +23,20 @@ describe('SpinsService', () => {
 
   const prismaMock = {
     datePlan: { findMany: jest.fn() },
-    spin: { findMany: jest.fn(), create: jest.fn() },
+    spin: {
+      findMany: jest.fn(),
+      findUnique: jest.fn(),
+      create: jest.fn(),
+      update: jest.fn(),
+    },
   };
 
   const configMock = {
     get: jest.fn().mockReturnValue(10),
+  };
+
+  const mailMock = {
+    sendSpinDecision: jest.fn().mockResolvedValue(undefined),
   };
 
   beforeEach(async () => {
@@ -35,6 +47,7 @@ describe('SpinsService', () => {
         SpinsService,
         { provide: PrismaService, useValue: prismaMock },
         { provide: ConfigService, useValue: configMock },
+        { provide: MailService, useValue: mailMock },
       ],
     }).compile();
 
@@ -185,6 +198,65 @@ describe('SpinsService', () => {
       expect(prismaMock.spin.findMany).toHaveBeenCalledWith(
         expect.objectContaining({ orderBy: { spunAt: 'desc' } }),
       );
+    });
+  });
+
+  describe('decide', () => {
+    it('records the decision and notifies by email', async () => {
+      prismaMock.spin.findUnique.mockResolvedValue({
+        id: 'spin-1',
+        outcome: 'PENDING',
+      });
+      prismaMock.spin.update.mockResolvedValue({
+        id: 'spin-1',
+        spunAt: new Date('2026-06-10T20:00:00.000Z'),
+        outcome: 'ACCEPTED',
+        decidedAt: new Date('2026-06-10T20:05:00.000Z'),
+        datePlan: {
+          id: 'plan-b',
+          title: 'Mirar el atardecer',
+          description: 'Buscar un lugar tranquilo.',
+          emoji: '🌄',
+          category: 'RELAX',
+        },
+      });
+
+      const result = await service.decide('spin-1', SpinDecision.ACCEPTED);
+
+      const [updateArg] = prismaMock.spin.update.mock.calls[0] as [
+        { where: { id: string }; data: { outcome: string; decidedAt: Date } },
+      ];
+      expect(updateArg.where).toEqual({ id: 'spin-1' });
+      expect(updateArg.data.outcome).toBe(SpinDecision.ACCEPTED);
+      expect(updateArg.data.decidedAt).toBeInstanceOf(Date);
+      expect(mailMock.sendSpinDecision).toHaveBeenCalledWith(
+        expect.objectContaining({
+          outcome: SpinDecision.ACCEPTED,
+          planTitle: 'Mirar el atardecer',
+        }),
+      );
+      expect(result.outcome).toBe('ACCEPTED');
+    });
+
+    it('throws NotFoundException when the spin does not exist', async () => {
+      prismaMock.spin.findUnique.mockResolvedValue(null);
+
+      await expect(
+        service.decide('missing', SpinDecision.ACCEPTED),
+      ).rejects.toBeInstanceOf(NotFoundException);
+      expect(prismaMock.spin.update).not.toHaveBeenCalled();
+    });
+
+    it('throws ConflictException when the spin is already decided', async () => {
+      prismaMock.spin.findUnique.mockResolvedValue({
+        id: 'spin-1',
+        outcome: 'ACCEPTED',
+      });
+
+      await expect(
+        service.decide('spin-1', SpinDecision.REJECTED),
+      ).rejects.toBeInstanceOf(ConflictException);
+      expect(prismaMock.spin.update).not.toHaveBeenCalled();
     });
   });
 });

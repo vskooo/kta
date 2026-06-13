@@ -4,16 +4,20 @@ import {
   Get,
   HttpCode,
   HttpStatus,
+  Param,
+  Patch,
   Post,
   Query,
 } from '@nestjs/common';
 import {
   ApiConflictResponse,
   ApiCreatedResponse,
+  ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
+import { DecideSpinDto } from './dto/decide-spin.dto';
 import { EmptySpinRequestDto } from './dto/empty-spin-request.dto';
 import { RecentSpinsQueryDto } from './dto/recent-spins-query.dto';
 import { RecentSpinsResponseDto, SpinResponseDto } from './dto/spin.dto';
@@ -33,6 +37,21 @@ export class SpinsController {
   })
   async spin(@Body() _body: EmptySpinRequestDto): Promise<SpinResponseDto> {
     const result = await this.spinsService.spin();
+    return { data: result };
+  }
+
+  @Patch(':id/decision')
+  @ApiOperation({
+    summary: 'Registrar si le gustó el panorama o si prefirió volver a girar',
+  })
+  @ApiOkResponse({ type: SpinResponseDto })
+  @ApiNotFoundResponse({ description: 'El giro indicado no existe.' })
+  @ApiConflictResponse({ description: 'El giro ya tiene una decisión.' })
+  async decide(
+    @Param('id') id: string,
+    @Body() body: DecideSpinDto,
+  ): Promise<SpinResponseDto> {
+    const result = await this.spinsService.decide(id, body.outcome);
     return { data: result };
   }
 
