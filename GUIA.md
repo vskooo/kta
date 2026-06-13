@@ -56,8 +56,9 @@ Crea un PostgreSQL administrado y copia su **`DATABASE_URL`** de producción.
 - **Root Directory:** `apps/api`
 - **Build Command:**
   ```bash
-  npm ci && npm run prisma:generate && npm run build && npm run prisma:deploy
+  npm ci --include=dev && npm run prisma:generate && npm run build && npm run prisma:deploy
   ```
+  > `--include=dev` es necesario porque `nest`, `prisma` y `typescript` están en `devDependencies` y con `NODE_ENV=production` npm los omitiría (causa el error `nest: not found`).
 - **Start Command:**
   ```bash
   npm run start:prod

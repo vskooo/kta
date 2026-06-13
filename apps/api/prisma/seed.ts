@@ -19,7 +19,7 @@ const initialPlans: Array<{
   },
   {
     title: 'Cafecito y paseo',
-    description: 'Elegir una cafetería y caminar sin apuro.',
+    description: 'Elegir una cafetería y caminar tranqui.',
     emoji: '☕',
     category: PlanCategory.FOOD,
     weight: 1,
@@ -33,7 +33,7 @@ const initialPlans: Array<{
   },
   {
     title: 'Mirar el atardecer',
-    description: 'Buscar un lugar tranquilo y ver caer el sol.',
+    description: 'Buscar un lugar tranquilo, llevar pantonera y ver caer el sol.',
     emoji: '🌄',
     category: PlanCategory.RELAX,
     weight: 1,
@@ -46,8 +46,8 @@ const initialPlans: Array<{
     weight: 1,
   },
   {
-    title: 'Noche de películas',
-    description: 'Elegir una película, mantita y algo para picar.',
+    title: 'Noche de peli',
+    description: 'Elegir una película, manta y comida.',
     emoji: '🎬',
     category: PlanCategory.HOME,
     weight: 1,
