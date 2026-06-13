@@ -68,7 +68,7 @@ const initialPlans: Array<{
   },
   {
     title: 'Probar un lugar nuevo',
-    description: 'Conocer un restaurante o rincón distinto.',
+    description: 'Conocer un restaurante o rincón distinto que alguno no haya visitado.',
     emoji: '🗺️',
     category: PlanCategory.FOOD,
     weight: 1,
