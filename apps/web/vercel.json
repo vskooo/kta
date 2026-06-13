@@ -5,7 +5,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://kta-xzsi.onrender.com"
+      "destination": "https://kta-xzsi.onrender.com/api/:path*"
     },
     {
       "source": "/(.*)",
