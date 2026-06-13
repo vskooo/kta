@@ -11,6 +11,7 @@
 }
 
 .card {
+  position: relative;
   width: 100%;
   max-width: 26rem;
   max-height: calc(100dvh - 2.5rem);
@@ -23,6 +24,38 @@
   box-shadow: 0 20px 50px rgba(20, 12, 32, 0.45);
   color: #26332d;
   animation: pop-in 0.45s cubic-bezier(0.34, 1.4, 0.64, 1) both;
+}
+
+.card-close {
+  position: absolute;
+  top: 0.85rem;
+  right: 0.85rem;
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  font-size: 1.6rem;
+  line-height: 1;
+  font-family: inherit;
+  color: #8a4a2c;
+  background: rgba(216, 135, 95, 0.16);
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+
+  &:hover {
+    background: rgba(216, 135, 95, 0.3);
+    transform: scale(1.05);
+  }
+
+  &:focus-visible {
+    outline: 3px solid #26344a;
+    outline-offset: 3px;
+  }
 }
 
 .card-kicker {
@@ -107,7 +140,8 @@
     animation-duration: 0.01s;
   }
 
-  .card-button {
+  .card-button,
+  .card-close {
     transition: none;
   }
 }

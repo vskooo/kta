@@ -1,10 +1,19 @@
-<div class="overlay">
+<!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -->
+<div class="overlay" (click)="onOverlayClick($event)">
   <div
     class="card"
     role="dialog"
     aria-modal="true"
     aria-labelledby="result-title"
   >
+    <button
+      type="button"
+      class="card-close"
+      [attr.aria-label]="texts.closeButton"
+      (click)="dismissed.emit()"
+    >
+      &times;
+    </button>
     <p class="card-kicker">{{ texts.resultTitle }}</p>
     <p class="card-emoji" aria-hidden="true">
       {{ result().selectedPlan.emoji ?? '✨' }}

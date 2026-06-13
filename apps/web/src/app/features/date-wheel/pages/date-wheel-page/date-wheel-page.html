@@ -50,5 +50,9 @@
 </main>
 
 @if (showResult() && result(); as spinResult) {
-  <app-result-card [result]="spinResult" (spinAgain)="onSpinAgain()" />
+  <app-result-card
+    [result]="spinResult"
+    (spinAgain)="onSpinAgain()"
+    (dismissed)="onCloseResult()"
+  />
 }

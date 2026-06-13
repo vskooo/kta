@@ -4,6 +4,7 @@ export const UI_TEXTS = {
   spinButton: 'Girar la ruleta',
   resultTitle: '¡Nuestra próxima cita será...!',
   spinAgainButton: 'Girar otra vez',
+  closeButton: 'Cerrar',
   loading: 'Preparando nuestros panoramas...',
   loadError: 'No pude cargar la ruleta. Intentemos nuevamente.',
   notEnoughPlans: 'Necesitamos al menos dos panoramas para girar la ruleta.',

@@ -127,4 +127,8 @@ export class DateWheelPage implements OnInit {
     this.showResult.set(false);
     this.spin();
   }
+
+  protected onCloseResult(): void {
+    this.showResult.set(false);
+  }
 }

@@ -20,7 +20,11 @@
           [attr.transform]="segment.labelTransform"
           [attr.fill]="segment.textColor"
         >
-          {{ segment.shortTitle }}
+          @for (line of segment.lines; track $index) {
+            <tspan [attr.x]="segment.labelX" [attr.dy]="line.dy">{{
+              line.text
+            }}</tspan>
+          }
         </text>
         <text
           class="emoji"

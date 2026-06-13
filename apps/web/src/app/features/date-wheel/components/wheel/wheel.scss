@@ -6,7 +6,7 @@
 .wheel-wrap {
   position: relative;
   width: 100%;
-  max-width: min(82vw, 420px);
+  max-width: min(82vw, 420px, 56vh);
   margin-inline: auto;
 }
 
@@ -43,11 +43,11 @@ svg {
 }
 
 .label {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
   text-anchor: middle;
   dominant-baseline: middle;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
   user-select: none;
 }
 

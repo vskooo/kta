@@ -8,12 +8,17 @@ import {
 import { UI_TEXTS } from '../../../../core/config/texts';
 import { DatePlan } from '../../../../core/models/date-plan.model';
 
+interface WheelLabelLine {
+  text: string;
+  dy: string;
+}
+
 interface WheelSegment {
   id: string;
   path: string;
   fill: string;
   textColor: string;
-  shortTitle: string;
+  lines: WheelLabelLine[];
   emoji: string;
   labelX: number;
   labelY: number;
@@ -24,9 +29,9 @@ interface WheelSegment {
 
 const CENTER = 180;
 const RADIUS = 172;
-const LABEL_RADIUS = 108;
-const EMOJI_RADIUS = 146;
-const MAX_LABEL_LENGTH = 14;
+const LABEL_RADIUS = 102;
+const EMOJI_RADIUS = 152;
+const SINGLE_LINE_MAX_LENGTH = 13;
 
 const SEGMENT_COLORS: readonly { fill: string; text: string }[] = [
   { fill: '#2e5d49', text: '#fff6e8' },
@@ -41,11 +46,42 @@ function polarPoint(angleDeg: number, radius: number): [number, number] {
   return [CENTER + radius * Math.sin(rad), CENTER - radius * Math.cos(rad)];
 }
 
-function abbreviate(title: string): string {
-  if (title.length <= MAX_LABEL_LENGTH) {
-    return title;
+function wrapLabel(title: string): string[] {
+  const trimmed = title.trim();
+  const words = trimmed.split(/\s+/);
+
+  if (trimmed.length <= SINGLE_LINE_MAX_LENGTH || words.length === 1) {
+    return [trimmed];
   }
-  return `${title.slice(0, MAX_LABEL_LENGTH - 1).trimEnd()}…`;
+
+  let bestSplit: [string, string] = [words[0], words.slice(1).join(' ')];
+  let bestScore = Infinity;
+
+  for (let i = 1; i < words.length; i++) {
+    const first = words.slice(0, i).join(' ');
+    const second = words.slice(i).join(' ');
+    const score = Math.max(first.length, second.length);
+
+    if (score < bestScore) {
+      bestScore = score;
+      bestSplit = [first, second];
+    }
+  }
+
+  return bestSplit;
+}
+
+function buildLabelLines(title: string): WheelLabelLine[] {
+  const lines = wrapLabel(title);
+
+  if (lines.length === 1) {
+    return [{ text: lines[0], dy: '0' }];
+  }
+
+  return [
+    { text: lines[0], dy: '-0.55em' },
+    { text: lines[1], dy: '1.1em' },
+  ];
 }
 
 @Component({
@@ -82,6 +118,8 @@ export class Wheel {
       const [labelX, labelY] = polarPoint(centerAngle, LABEL_RADIUS);
       const [emojiX, emojiY] = polarPoint(centerAngle, EMOJI_RADIUS);
       const colors = SEGMENT_COLORS[index % SEGMENT_COLORS.length];
+      const flipped = centerAngle > 90 && centerAngle < 270;
+      const labelAngle = flipped ? centerAngle + 90 : centerAngle - 90;
 
       return {
         id: plan.id,
@@ -91,11 +129,11 @@ export class Wheel {
             : `M ${CENTER} ${CENTER} L ${startX} ${startY} A ${RADIUS} ${RADIUS} 0 ${largeArc} 1 ${endX} ${endY} Z`,
         fill: colors.fill,
         textColor: colors.text,
-        shortTitle: abbreviate(plan.title),
+        lines: buildLabelLines(plan.title),
         emoji: plan.emoji ?? '✨',
         labelX,
         labelY,
-        labelTransform: `rotate(${centerAngle - 90}, ${labelX}, ${labelY})`,
+        labelTransform: `rotate(${labelAngle}, ${labelX}, ${labelY})`,
         emojiX,
         emojiY,
       };

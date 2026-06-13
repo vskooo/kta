@@ -44,6 +44,135 @@
   animation-delay: 4.5s;
 }
 
+.grow {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  transform: scale(0);
+  opacity: 0;
+  animation: grow-cycle 14s ease-in-out infinite;
+}
+
+.grow.g1 {
+  animation-delay: 0s;
+  animation-duration: 15s;
+}
+
+.grow.g2 {
+  animation-delay: 3.5s;
+  animation-duration: 13s;
+}
+
+.grow.g3 {
+  animation-delay: 7s;
+  animation-duration: 16s;
+}
+
+.grow.g4 {
+  animation-delay: 5s;
+  animation-duration: 14s;
+}
+
+.grow.g5 {
+  animation-delay: 9.5s;
+  animation-duration: 17s;
+}
+
+.trekker {
+  transform: translate(0, 0);
+  opacity: 0;
+  animation: trek 30s linear infinite;
+}
+
+.trekker-bob {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: trek-bob 0.9s ease-in-out infinite;
+}
+
+.leg-front {
+  transform-box: fill-box;
+  transform-origin: 0 0;
+  animation: leg-front-swing 0.9s ease-in-out infinite;
+}
+
+.leg-back {
+  transform-box: fill-box;
+  transform-origin: 0 0;
+  animation: leg-back-swing 0.9s ease-in-out infinite;
+}
+
+@keyframes grow-cycle {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  18% {
+    transform: scale(1);
+  }
+  78% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  92% {
+    transform: scale(1);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes trek {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(300px, -74px);
+    opacity: 0;
+  }
+}
+
+@keyframes trek-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-1px);
+  }
+}
+
+@keyframes leg-front-swing {
+  0%,
+  100% {
+    transform: rotate(14deg);
+  }
+  50% {
+    transform: rotate(-14deg);
+  }
+}
+
+@keyframes leg-back-swing {
+  0%,
+  100% {
+    transform: rotate(-14deg);
+  }
+  50% {
+    transform: rotate(14deg);
+  }
+}
+
 @keyframes twinkle {
   0%,
   100% {
@@ -82,11 +211,26 @@
 @media (prefers-reduced-motion: reduce) {
   .tw,
   .cloud,
-  .comet {
+  .comet,
+  .grow,
+  .trekker,
+  .trekker-bob,
+  .leg-front,
+  .leg-back {
     animation: none;
   }
 
   .comet {
     opacity: 0.5;
+  }
+
+  .grow {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  .trekker {
+    opacity: 1;
+    transform: translate(150px, -37px);
   }
 }

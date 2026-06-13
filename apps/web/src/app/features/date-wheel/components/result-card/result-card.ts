@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  HostListener,
   input,
   output,
 } from '@angular/core';
@@ -16,6 +17,18 @@ import { SpinResult } from '../../../../core/models/spin.model';
 export class ResultCard {
   readonly result = input.required<SpinResult>();
   readonly spinAgain = output<void>();
+  readonly dismissed = output<void>();
 
   protected readonly texts = UI_TEXTS;
+
+  protected onOverlayClick(event: MouseEvent): void {
+    if (event.target === event.currentTarget) {
+      this.dismissed.emit();
+    }
+  }
+
+  @HostListener('document:keydown.escape')
+  protected onEscape(): void {
+    this.dismissed.emit();
+  }
 }
