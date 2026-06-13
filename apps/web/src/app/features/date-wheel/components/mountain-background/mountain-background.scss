@@ -13,6 +13,20 @@
   display: block;
 }
 
+.scene--mobile {
+  display: none;
+}
+
+@media (max-width: 768px), (orientation: portrait) {
+  .scene--desktop {
+    display: none;
+  }
+
+  .scene--mobile {
+    display: block;
+  }
+}
+
 .tw {
   animation: twinkle 3.2s ease-in-out infinite;
 }

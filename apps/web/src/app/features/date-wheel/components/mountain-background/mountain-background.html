@@ -1,5 +1,5 @@
 <svg
-  class="scene"
+  class="scene scene--desktop"
   viewBox="0 0 1440 900"
   preserveAspectRatio="xMidYMax slice"
   aria-hidden="true"
@@ -250,3 +250,257 @@
     <path d="M1306 852 C 1308 842 1304 834 1308 826" />
   </g>
 </svg>
+
+<svg
+  class="scene scene--mobile"
+  viewBox="0 0 720 1280"
+  preserveAspectRatio="xMidYMax slice"
+  aria-hidden="true"
+  focusable="false"
+>
+  <defs>
+    <linearGradient id="sky-m" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#241636" />
+      <stop offset="0.42" stop-color="#4a2350" />
+      <stop offset="0.68" stop-color="#93374d" />
+      <stop offset="0.85" stop-color="#d65a3a" />
+    </linearGradient>
+    <radialGradient id="sun-glow-m" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0.35" stop-color="#f8a05a" stop-opacity="0.55" />
+      <stop offset="0.7" stop-color="#e8633c" stop-opacity="0.25" />
+      <stop offset="1" stop-color="#e8633c" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="comet-m" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#f47b3f" stop-opacity="0" />
+      <stop offset="1" stop-color="#ffd9a0" stop-opacity="0.9" />
+    </linearGradient>
+  </defs>
+
+  <rect width="720" height="1280" fill="url(#sky-m)" />
+
+  <g class="stars" fill="#fff6e8">
+    <circle cx="70" cy="90" r="2" />
+    <circle class="tw" cx="180" cy="200" r="1.6" />
+    <circle cx="290" cy="70" r="2.2" />
+    <circle class="tw d1" cx="380" cy="250" r="1.5" />
+    <circle cx="470" cy="120" r="1.8" />
+    <circle class="tw d2" cx="560" cy="60" r="2.4" />
+    <circle cx="620" cy="210" r="1.5" />
+    <circle class="tw" cx="660" cy="130" r="2" />
+    <circle cx="120" cy="330" r="1.6" />
+    <circle class="tw d1" cx="250" cy="400" r="1.8" />
+    <circle cx="430" cy="350" r="2.2" />
+    <circle class="tw d2" cx="600" cy="380" r="1.5" />
+    <circle cx="330" cy="470" r="2" />
+    <circle class="tw" cx="80" cy="500" r="1.5" />
+    <circle cx="520" cy="490" r="1.4" />
+    <circle class="tw d1" cx="200" cy="560" r="1.6" />
+    <circle cx="650" cy="540" r="1.5" />
+    <circle class="tw d2" cx="400" cy="600" r="1.4" />
+  </g>
+
+  <g class="moon">
+    <circle cx="150" cy="230" r="40" fill="#8a6cab" />
+    <circle cx="137" cy="219" r="8" fill="#76589a" />
+    <circle cx="163" cy="245" r="5.5" fill="#76589a" />
+    <circle cx="157" cy="214" r="3.8" fill="#9d82bb" />
+  </g>
+
+  <g class="comets" stroke="url(#comet-m)" stroke-width="3" stroke-linecap="round">
+    <line class="comet" x1="430" y1="180" x2="510" y2="148" />
+    <line class="comet c2" x1="120" y1="430" x2="190" y2="402" />
+  </g>
+
+  <g class="sun">
+    <circle cx="470" cy="620" r="170" fill="url(#sun-glow-m)" />
+    <circle cx="470" cy="620" r="72" fill="#f8e7c4" />
+    <circle cx="470" cy="620" r="72" fill="none" stroke="#f47b3f" stroke-width="3" stroke-opacity="0.6" />
+  </g>
+
+  <g class="clouds" fill="#fff6e8">
+    <g class="cloud">
+      <ellipse cx="220" cy="640" rx="90" ry="16" />
+      <ellipse cx="280" cy="626" rx="60" ry="12" />
+    </g>
+    <g class="cloud c2">
+      <ellipse cx="560" cy="730" rx="80" ry="14" />
+      <ellipse cx="510" cy="718" rx="50" ry="10" />
+    </g>
+  </g>
+
+  <path
+    d="M0 900 C 100 840 200 800 300 845 C 380 880 440 815 520 778 C 600 742 660 815 720 845 L 720 1280 L 0 1280 Z"
+    fill="#33655a"
+  />
+  <path
+    d="M0 985 C 110 930 210 865 320 902 C 430 939 500 875 590 856 C 650 844 690 882 720 894 L 720 1280 L 0 1280 Z"
+    fill="#265042"
+  />
+  <path
+    d="M0 1070 C 130 1010 280 962 440 992 C 560 1015 640 965 720 974 L 720 1280 L 0 1280 Z"
+    fill="#1d4434"
+  />
+  <path
+    d="M0 1140 C 180 1104 380 1092 540 1108 C 640 1118 690 1104 720 1120 L 720 1280 L 0 1280 Z"
+    fill="#142f24"
+  />
+
+  <g class="trekker-anchor" transform="translate(110 808)">
+    <g class="trekker">
+      <g class="trekker-bob" transform="scale(1.5)">
+        <!-- trekking pole -->
+        <line
+          x1="2"
+          y1="-12"
+          x2="7"
+          y2="1"
+          stroke="#0c241b"
+          stroke-width="1"
+          stroke-linecap="round"
+        />
+        <!-- backpack -->
+        <rect x="-4.6" y="-12.8" width="4.8" height="7.8" rx="2" fill="#143a2b" />
+        <!-- back leg -->
+        <line
+          class="leg-back"
+          x1="0"
+          y1="-6"
+          x2="-3"
+          y2="0.5"
+          stroke="#0c241b"
+          stroke-width="1.5"
+          stroke-linecap="round"
+        />
+        <!-- front leg -->
+        <line
+          class="leg-front"
+          x1="0"
+          y1="-6"
+          x2="3.4"
+          y2="0.5"
+          stroke="#0c241b"
+          stroke-width="1.5"
+          stroke-linecap="round"
+        />
+        <!-- torso -->
+        <line
+          x1="0"
+          y1="-6"
+          x2="2"
+          y2="-13.5"
+          stroke="#0c241b"
+          stroke-width="1.8"
+          stroke-linecap="round"
+        />
+        <!-- arm to pole -->
+        <line
+          x1="2"
+          y1="-12"
+          x2="2.6"
+          y2="-12"
+          stroke="#0c241b"
+          stroke-width="1.4"
+          stroke-linecap="round"
+        />
+        <!-- ponytail -->
+        <path
+          class="ponytail"
+          d="M1.4 -16 C -1.2 -15.4 -1.6 -13.6 -0.6 -12.4"
+          fill="none"
+          stroke="#0c241b"
+          stroke-width="1.5"
+          stroke-linecap="round"
+        />
+        <!-- head -->
+        <circle cx="2.6" cy="-15.6" r="2.1" fill="#0c241b" />
+      </g>
+    </g>
+  </g>
+
+  <g class="growing-mushrooms">
+    <g transform="translate(150 1175)">
+      <g class="grow g1">
+        <rect x="-2.5" y="-9" width="5" height="9" rx="2.5" fill="#f4e0c0" />
+        <path d="M-7 -8 C -7 -17 7 -17 7 -8 Z" fill="#e0563f" />
+        <circle cx="-3" cy="-11" r="1.4" fill="#fff6e8" />
+        <circle cx="2.5" cy="-13" r="1.6" fill="#fff6e8" />
+      </g>
+    </g>
+    <g transform="translate(300 1205)">
+      <g class="grow g2">
+        <rect x="-2.5" y="-9" width="5" height="9" rx="2.5" fill="#f0dcc0" />
+        <path d="M-7 -8 C -7 -17 7 -17 7 -8 Z" fill="#8a5fa8" />
+        <circle cx="-2.5" cy="-11" r="1.4" fill="#fff6e8" />
+        <circle cx="3" cy="-12.5" r="1.4" fill="#fff6e8" />
+      </g>
+    </g>
+    <g transform="translate(420 1220)">
+      <g class="grow g3">
+        <rect x="-2.5" y="-8" width="5" height="8" rx="2.5" fill="#f4e0c0" />
+        <path d="M-6 -7 C -6 -15 6 -15 6 -7 Z" fill="#d77fa3" />
+        <circle cx="-2" cy="-10" r="1.3" fill="#fff6e8" />
+        <circle cx="2.5" cy="-11.5" r="1.3" fill="#fff6e8" />
+      </g>
+    </g>
+    <g transform="translate(560 1185)">
+      <g class="grow g4">
+        <rect x="-2.5" y="-9" width="5" height="9" rx="2.5" fill="#f0dcc0" />
+        <path d="M-7 -8 C -7 -17 7 -17 7 -8 Z" fill="#e0563f" />
+        <circle cx="-3" cy="-11" r="1.4" fill="#fff6e8" />
+        <circle cx="2.5" cy="-13" r="1.5" fill="#fff6e8" />
+      </g>
+    </g>
+    <g transform="translate(640 1150)">
+      <g class="grow g5">
+        <rect x="-2.5" y="-8" width="5" height="8" rx="2.5" fill="#f4e0c0" />
+        <path d="M-6 -7 C -6 -15 6 -15 6 -7 Z" fill="#8a5fa8" />
+        <circle cx="-2" cy="-10" r="1.3" fill="#fff6e8" />
+        <circle cx="2.5" cy="-11.5" r="1.3" fill="#fff6e8" />
+      </g>
+    </g>
+  </g>
+
+  <g class="pines" fill="#0f2c21">
+    <path d="M70 1200 L86 1154 L102 1200 Z" />
+    <path d="M96 1206 L108 1172 L120 1206 Z" />
+    <path d="M600 1196 L616 1148 L632 1196 Z" />
+    <path d="M632 1204 L644 1168 L656 1204 Z" />
+  </g>
+
+  <g class="mushrooms">
+    <g transform="translate(70 1188)">
+      <rect x="-7" y="0" width="14" height="30" rx="6" fill="#f4e0c0" />
+      <path d="M-26 4 C -26 -22 26 -22 26 4 Z" fill="#e0563f" />
+      <circle cx="-12" cy="-6" r="3" fill="#fff6e8" />
+      <circle cx="2" cy="-12" r="3.5" fill="#fff6e8" />
+      <circle cx="14" cy="-4" r="2.5" fill="#fff6e8" />
+    </g>
+    <g transform="translate(120 1206) scale(0.7)">
+      <rect x="-7" y="0" width="14" height="28" rx="6" fill="#f0dcc0" />
+      <path d="M-24 4 C -24 -20 24 -20 24 4 Z" fill="#8a5fa8" />
+      <circle cx="-9" cy="-6" r="3" fill="#fff6e8" />
+      <circle cx="8" cy="-9" r="2.5" fill="#fff6e8" />
+    </g>
+    <g transform="translate(650 1196)">
+      <rect x="-7" y="0" width="14" height="32" rx="6" fill="#f4e0c0" />
+      <path d="M-25 4 C -25 -21 25 -21 25 4 Z" fill="#d77fa3" />
+      <circle cx="-10" cy="-7" r="3" fill="#fff6e8" />
+      <circle cx="6" cy="-11" r="3" fill="#fff6e8" />
+      <circle cx="15" cy="-3" r="2.2" fill="#fff6e8" />
+    </g>
+    <g transform="translate(688 1210) scale(0.62)">
+      <rect x="-7" y="0" width="14" height="28" rx="6" fill="#f0dcc0" />
+      <path d="M-24 4 C -24 -20 24 -20 24 4 Z" fill="#e0563f" />
+      <circle cx="-8" cy="-7" r="3" fill="#fff6e8" />
+      <circle cx="9" cy="-8" r="2.6" fill="#fff6e8" />
+    </g>
+  </g>
+
+  <g class="grass" stroke="#2e6450" stroke-width="3" stroke-linecap="round" fill="none">
+    <path d="M40 1230 C 38 1220 42 1212 40 1204" />
+    <path d="M50 1232 C 52 1222 48 1216 52 1208" />
+    <path d="M676 1228 C 674 1218 678 1210 676 1202" />
+    <path d="M686 1232 C 688 1222 684 1214 688 1206" />
+  </g>
+</svg>
+
