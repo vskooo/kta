@@ -24,7 +24,7 @@ Campos:
 | `title` | Nombre visible (máx. 80) |
 | `description` | Texto del resultado (máx. 240) |
 | `emoji` | Emoji del segmento |
-| `category` | `FOOD`, `ADVENTURE`, `RELAX`, `HOME`, `SURPRISE` u `OTHER` |
+| `category` | `FOOD`, `ADVENTURE`, `RELAX`, `HOME`, `SPORT`, `SURPRISE` u `OTHER` |
 | `weight` | Probabilidad (entero **1 a 100**; más alto = sale más seguido) |
 | `isActive` | `true` aparece en la ruleta, `false` no |
 

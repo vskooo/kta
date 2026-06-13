@@ -3,6 +3,7 @@ export type PlanCategory =
   | 'ADVENTURE'
   | 'RELAX'
   | 'HOME'
+  | 'SPORT'
   | 'SURPRISE'
   | 'OTHER';
 

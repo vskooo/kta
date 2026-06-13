@@ -66,6 +66,13 @@ const initialPlans: Array<{
     category: PlanCategory.SURPRISE,
     weight: 1,
   },
+  {
+    title: 'Cerrito AM',
+    description: 'Trote al cerrito de madrugada.',
+    emoji: '🏃‍♀️‍➡️',
+    category: PlanCategory.SPORT,
+    weight: 1,
+  },
 ];
 
 async function main(): Promise<void> {
