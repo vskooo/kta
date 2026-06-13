@@ -5,7 +5,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://kta-og4o7kr8k-asko.vercel.app"
+      "destination": "https://kta-xzsi.onrender.com"
     },
     {
       "source": "/(.*)",
