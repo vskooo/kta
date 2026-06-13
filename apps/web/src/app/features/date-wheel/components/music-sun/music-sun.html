@@ -1,0 +1,56 @@
+<!-- Capa interactiva: mismo viewBox y recorte que el fondo para clavar el botón en el sol -->
+<svg
+  class="overlay overlay--desktop"
+  viewBox="0 0 1440 900"
+  preserveAspectRatio="xMidYMax slice"
+  focusable="false"
+>
+  <g
+    class="sun-btn"
+    role="button"
+    tabindex="0"
+    [attr.aria-label]="playing() ? texts.musicPause : texts.musicPlay"
+    [attr.aria-pressed]="playing()"
+    (click)="toggle()"
+    (keydown.enter)="toggle()"
+    (keydown.space)="toggleFromKey($event)"
+  >
+    <circle class="hit" cx="1040" cy="430" r="64" />
+    @if (playing()) {
+      <g class="icon">
+        <rect x="1021" y="408" width="11" height="44" rx="3" />
+        <rect x="1048" y="408" width="11" height="44" rx="3" />
+      </g>
+    } @else {
+      <polygon class="icon" points="1028,408 1028,452 1064,430" />
+    }
+  </g>
+</svg>
+
+<svg
+  class="overlay overlay--mobile"
+  viewBox="0 0 720 1280"
+  preserveAspectRatio="xMidYMax slice"
+  focusable="false"
+>
+  <g
+    class="sun-btn"
+    role="button"
+    tabindex="0"
+    [attr.aria-label]="playing() ? texts.musicPause : texts.musicPlay"
+    [attr.aria-pressed]="playing()"
+    (click)="toggle()"
+    (keydown.enter)="toggle()"
+    (keydown.space)="toggleFromKey($event)"
+  >
+    <circle class="hit" cx="545" cy="250" r="60" />
+    @if (playing()) {
+      <g class="icon">
+        <rect x="526" y="228" width="11" height="44" rx="3" />
+        <rect x="553" y="228" width="11" height="44" rx="3" />
+      </g>
+    } @else {
+      <polygon class="icon" points="533,228 533,272 569,250" />
+    }
+  </g>
+</svg>

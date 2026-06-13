@@ -14,6 +14,7 @@ import { SpinsApiService } from '../../../../core/services/spins-api.service';
 import { ErrorState } from '../../../../shared/components/error-state/error-state';
 import { LoadingState } from '../../../../shared/components/loading-state/loading-state';
 import { MountainBackground } from '../../components/mountain-background/mountain-background';
+import { MusicSun } from '../../components/music-sun/music-sun';
 import { ResultCard } from '../../components/result-card/result-card';
 import { Wheel } from '../../components/wheel/wheel';
 import { computeWheelRotation } from '../../utils/wheel-rotation';
@@ -22,7 +23,14 @@ const EXTRA_TURNS = 5;
 
 @Component({
   selector: 'app-date-wheel-page',
-  imports: [MountainBackground, Wheel, ResultCard, LoadingState, ErrorState],
+  imports: [
+    MountainBackground,
+    MusicSun,
+    Wheel,
+    ResultCard,
+    LoadingState,
+    ErrorState,
+  ],
   templateUrl: './date-wheel-page.html',
   styleUrl: './date-wheel-page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

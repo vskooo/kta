@@ -16,4 +16,6 @@ export const UI_TEXTS = {
   retryButton: 'Reintentar',
   wheelDescription:
     'Ruleta con panoramas de cita. Gira para elegir nuestra próxima aventura.',
+  musicPlay: 'Reproducir música',
+  musicPause: 'Pausar música',
 } as const;
