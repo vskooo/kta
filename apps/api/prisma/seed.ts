@@ -25,6 +25,13 @@ const initialPlans: Array<{
     weight: 1,
   },
   {
+    title: 'Pubcito',
+    description: 'Ir a un pub y disfrutar alguna delicia jaja',
+    emoji: '🍺',
+    category: PlanCategory.HOME,
+    weight: 1,
+  },
+  {
     title: 'Cena casera juntos',
     description: 'Cocinar algo rico entre los dos.',
     emoji: '🍝',
@@ -40,7 +47,7 @@ const initialPlans: Array<{
   },
   {
     title: 'Caminata en la naturaleza',
-    description: 'Salir a recorrer un sendero o parque.',
+    description: 'Salir a recorrer algun spot.',
     emoji: '🥾',
     category: PlanCategory.ADVENTURE,
     weight: 1,
@@ -50,6 +57,13 @@ const initialPlans: Array<{
     description: 'Elegir una película, manta y comida.',
     emoji: '🎬',
     category: PlanCategory.HOME,
+    weight: 1,
+  },
+  {
+    title: 'Cita Deportiva',
+    description: 'Elijamos deporte y vamo',
+    emoji: '🏃‍♀️‍➡️🧗🥊',
+    category: PlanCategory.SPORT,
     weight: 1,
   },
   {
